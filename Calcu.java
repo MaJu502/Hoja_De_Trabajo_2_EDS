@@ -10,7 +10,6 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 
-import jdk.javadoc.internal.doclets.formats.html.SystemPropertiesWriter;
 
 public class Calcu implements calculadora{
 
@@ -97,7 +96,7 @@ public class Calcu implements calculadora{
             return 0;
         }
 
-        Stack<String> procedimiento = new Stack<String>(); //Stack para realizar los procesos de operacion
+        Stacked procedimiento = new Stacked(); //Stack para realizar los procesos de operacion
 
         while(x.empty() != true){
             //Sigue operando hasta que el stack esté vacio y no haya mas por hacer
@@ -159,7 +158,8 @@ public class Calcu implements calculadora{
                     }catch(Exception e){ System.out.println("Error! Falla total.");} 
                     
                     resultadoxy = suma(numerox, numeroy);
-                    x.push(resultadoxy);
+                    String resultadoxy_string = String.valueOf(resultadoxy);
+                    procedimiento.push(resultadoxy_string);
                     System.out.println("La suma de los numeros " + numerox + " y " + numeroy + " se ha realizado.");
                     System.out.println("El resultado " + resultadoxy + " se ha guardado en el stack.");
                     break;
@@ -172,7 +172,8 @@ public class Calcu implements calculadora{
                     }catch(Exception e){ System.out.println("Error! Falla total.");} 
                     
                     resultadoxy = resta(numerox, numeroy);
-                    x.push(resultadoxy);
+                    String resultadoxy_string_2 = String.valueOf(resultadoxy);
+                    procedimiento.push(resultadoxy_string_2);
                     System.out.println("La resta de los numeros " + numerox + " y " + numeroy + " se ha realizado.");
                     System.out.println("El resultado " + resultadoxy + " se ha guardado en el stack.");
                     break;
@@ -185,7 +186,8 @@ public class Calcu implements calculadora{
                     }catch(Exception e){ System.out.println("Error! Falla total.");} 
                     
                     resultadoxy = multiplicacion(numerox, numeroy);
-                    x.push(resultadoxy);
+                    String resultadoxy_string_3 = String.valueOf(resultadoxy);
+                    procedimiento.push(resultadoxy_string_3);
                     System.out.println("La multiplicacion de los numeros " + numerox + " y " + numeroy + " se ha realizado.");
                     System.out.println("El resultado " + resultadoxy + " se ha guardado en el stack.");
                     break;
@@ -198,7 +200,8 @@ public class Calcu implements calculadora{
                     }catch(Exception e){ System.out.println("Error! Falla total.");} 
                     
                     resultadoxy = division(numerox, numeroy);
-                    x.push(resultadoxy);
+                    String resultadoxy_string_4 = String.valueOf(resultadoxy);
+                    procedimiento.push(resultadoxy_string_4);
                     System.out.println("La division de los numeros " + numerox + " y " + numeroy + " se ha realizado.");
                     System.out.println("El resultado " + resultadoxy + " se ha guardado en el stack.");
                     break;
@@ -226,11 +229,14 @@ public class Calcu implements calculadora{
          * Sirve para leer el archivo de texto y obtener la operacion en el formato postfix.
          */
 
+        String retorno = "";
+
         Stacked pila_lineas_Archivo = new Stacked();
         
         File nombre_archivo = new File((a + ".txt"));
 
         try{
+            System.out.println("SI LLEGUE AQUI");
             //intenta abirir el archivo 
             Scanner scan = new Scanner(nombre_archivo);
             while(scan.hasNextLine()){
@@ -244,12 +250,34 @@ public class Calcu implements calculadora{
         /**Ahora el stack plia_lineas_Archivo contiene las lineas
          * del archivo. Lo siguiente es sacar cada dato de la linea */
 
+        
+        int j= 1;
          while(pila_lineas_Archivo.size() != 0){
 
-            //Recorre la pila hasta que esta se encuentre vacía
+            j++;
             
+
+            //Recorre la pila hasta que esta se encuentre vacía
+
+            String fila = pila_lineas_Archivo.pop();
+            String [] datos_de_linea = fila.split(" "); //Separa según los espacios en blanco.
+
+            //Enviar esos characteres a un nuevo stack. 
+            Stacked pila_datos = new Stacked();
+
+            for(int i = datos_de_linea.length -1; i > -1; i--){
+                pila_datos.push(datos_de_linea[i]); //mete cada dato a la pila.
+            }
+
+            int resultado_operar = operar(pila_datos);
+
+            
+            retorno += "--------------------------------------------------------------------------------------\n";
+            retorno += "-------->  El resultado de la operacion no. " + j + " es " + resultado_operar + ".\n";
+            retorno += "--------------------------------------------------------------------------------------\n\n";
+
          }
-        return null;
+        return retorno;
     }
     
 }
