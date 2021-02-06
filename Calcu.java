@@ -6,11 +6,20 @@
 * Autor: Marco Jurado 
 *
 ********************************************************/
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
 
+import jdk.javadoc.internal.doclets.formats.html.SystemPropertiesWriter;
 
 public class Calcu implements calculadora{
 
     //-------------------------------------------------Atributos--------------------------------------
+
+    int numerox; 
+    int numeroy; 
+    int resultadoxy; 
+    String elemento_pila;
 
     //-------------------------------------------------Metodos----------------------------------------
  
@@ -94,12 +103,10 @@ public class Calcu implements calculadora{
             //Sigue operando hasta que el stack esté vacio y no haya mas por hacer
 
             //Las tres posiciones numericas basicas a utliizar en todo momento. Solo se tienen 3 pues solo hace una operacion a la vez.
-            int numerox; 
-            int numeroy; 
-            int resultadoxy; 
+        
 
             try{
-                String elemento_pila = x.pop().toString();
+                elemento_pila = x.pop().toString();
             }catch(Exception C){
                 System.out.println("OW NO. Un error ha ocurrido. Favor contactar a su proveedor del codigo mas cercano. Osea... Marco Jurado");
             }
@@ -152,7 +159,7 @@ public class Calcu implements calculadora{
                     }catch(Exception e){ System.out.println("Error! Falla total.");} 
                     
                     resultadoxy = suma(numerox, numeroy);
-                    x.push(restultadoxy);
+                    x.push(resultadoxy);
                     System.out.println("La suma de los numeros " + numerox + " y " + numeroy + " se ha realizado.");
                     System.out.println("El resultado " + resultadoxy + " se ha guardado en el stack.");
                     break;
@@ -165,7 +172,7 @@ public class Calcu implements calculadora{
                     }catch(Exception e){ System.out.println("Error! Falla total.");} 
                     
                     resultadoxy = resta(numerox, numeroy);
-                    x.push(restultadoxy);
+                    x.push(resultadoxy);
                     System.out.println("La resta de los numeros " + numerox + " y " + numeroy + " se ha realizado.");
                     System.out.println("El resultado " + resultadoxy + " se ha guardado en el stack.");
                     break;
@@ -178,7 +185,7 @@ public class Calcu implements calculadora{
                     }catch(Exception e){ System.out.println("Error! Falla total.");} 
                     
                     resultadoxy = multiplicacion(numerox, numeroy);
-                    x.push(restultadoxy);
+                    x.push(resultadoxy);
                     System.out.println("La multiplicacion de los numeros " + numerox + " y " + numeroy + " se ha realizado.");
                     System.out.println("El resultado " + resultadoxy + " se ha guardado en el stack.");
                     break;
@@ -191,7 +198,7 @@ public class Calcu implements calculadora{
                     }catch(Exception e){ System.out.println("Error! Falla total.");} 
                     
                     resultadoxy = division(numerox, numeroy);
-                    x.push(restultadoxy);
+                    x.push(resultadoxy);
                     System.out.println("La division de los numeros " + numerox + " y " + numeroy + " se ha realizado.");
                     System.out.println("El resultado " + resultadoxy + " se ha guardado en el stack.");
                     break;
@@ -215,8 +222,33 @@ public class Calcu implements calculadora{
     */
     @Override
     public String decode(String a) {
-        // TODO Auto-generated method stub
+        /**
+         * Sirve para leer el archivo de texto y obtener la operacion en el formato postfix.
+         */
+
+        Stacked pila_lineas_Archivo = new Stacked();
         
+        File nombre_archivo = new File((a + ".txt"));
+
+        try{
+            //intenta abirir el archivo 
+            Scanner scan = new Scanner(nombre_archivo);
+            while(scan.hasNextLine()){
+                pila_lineas_Archivo.push(scan.nextLine());
+            }
+        }catch(FileNotFoundException C){
+            //No se encontro el archivo. Se procede a mostrar el mensaje de error
+            System.out.println("\n El archivo " + a + " .txt no s eencontro en la carpeta, intente nuevamente.");
+        }
+
+        /**Ahora el stack plia_lineas_Archivo contiene las lineas
+         * del archivo. Lo siguiente es sacar cada dato de la linea */
+
+         while(pila_lineas_Archivo.size() != 0){
+
+            //Recorre la pila hasta que esta se encuentre vacía
+            
+         }
         return null;
     }
     

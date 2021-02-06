@@ -15,7 +15,7 @@ public class Stacked implements Stack<String> {
 
     //----------------------------------------------------- Atributos ----------------------------------------------------------
 
-    private Vector<E> stack; 
+    private Vector<String> stack; 
 
     //----------------------------------------------------- Metodos ----------------------------------------------------------
 
@@ -23,7 +23,7 @@ public class Stacked implements Stack<String> {
     * Constructor for StackImplementation class 
     */
     public Stacked (){
-        this.stack = new Vectort<E>();
+        this.stack = new Vector<String>();
     }
 
     /**
