@@ -236,7 +236,6 @@ public class Calcu implements calculadora{
         File nombre_archivo = new File((a + ".txt"));
 
         try{
-            System.out.println("SI LLEGUE AQUI");
             //intenta abirir el archivo 
             Scanner scan = new Scanner(nombre_archivo);
             while(scan.hasNextLine()){
@@ -273,7 +272,7 @@ public class Calcu implements calculadora{
 
             
             retorno += "--------------------------------------------------------------------------------------\n";
-            retorno += "-------->  El resultado de la operacion no. " + j + " es " + resultado_operar + ".\n";
+            retorno += "-------->  El resultado de la operacion no. " + (j-1) + " es " + resultado_operar + ".\n";
             retorno += "--------------------------------------------------------------------------------------\n\n";
 
          }

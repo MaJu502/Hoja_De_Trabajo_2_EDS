@@ -19,7 +19,7 @@ public class DriverHT2 {
         
         Calcu calculator = new Calcu();
 
-        calculator.decode(Nombre_Archivo);
+        System.out.print(calculator.decode(Nombre_Archivo));
         
         
     }
